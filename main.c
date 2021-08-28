@@ -5,7 +5,7 @@
 
 #define TEST_MODE
 
-const int INFINITE_ROOTS_COUNT = 1e9;
+const int INFINITE_ROOTS_COUNT = -1;
 const double PRECISION = 1e-18;
 
 bool isEqual (double x, double y) {
@@ -16,6 +16,12 @@ bool isEqual (double x, double y) {
 }
 
 int solveLinearEquation (double b, double c, double *x1, double *x2) {
+    assert (isfinite (b));
+    assert (isfinite (c));
+    assert (x1 != NULL);
+    assert (x2 != NULL);
+    assert (x1 != x2);
+
     if (isEqual (b, 0)) {
         if (isEqual (c, 0)) {
             return INFINITE_ROOTS_COUNT;
@@ -27,7 +33,7 @@ int solveLinearEquation (double b, double c, double *x1, double *x2) {
     return 1;
 }
 
-int solveQadraticEquation (double a, double b, double c, double *x1, double *x2) {
+int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
     assert (isfinite (b));
     assert (isfinite (c));
@@ -59,6 +65,8 @@ void clear () {
 }
 
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
+    assert (pointerToCoefficient != NULL);
+
     printf ("%c =", typeCoefficient);
     while (scanf ("%lg", pointerToCoefficient) != 1) {
         clear ();
@@ -67,80 +75,109 @@ void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
 }
 
 void readCoefficients (double *a, double *b, double *c) {
+    assert (a != b);
+    assert (a != c);
+    assert (b != c);
+
     readCoefficient (a, 'a');
     readCoefficient (b, 'b');
     readCoefficient (c, 'c');
 }
 
-void printFAIL (int numberTest, double a, double b, double c, int CntSolveQadraticEquation, double user_x1, double user_x2, double x1, double x2) {
-    printf ("FAIL# %d: a = %lg, b = %lg, c = %lg, correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f, x1 = %.18f, x2 = %.18f \n", numberTest, a, b, c, CntSolveQadraticEquation, user_x1, user_x2, x1, x2);
+void printFAIL (int numberTest, double a, double b, double c, int cntSolveQuadraticEquation,
+                double correctX1, double correctX2, double x1, double x2) {
+    assert (isfinite (a));
+    assert (isfinite (b));
+    assert (isfinite (c));
+    assert (isfinite (correctX1));
+    assert (isfinite (correctX2));
+    assert (isfinite (x1));
+    assert (isfinite (x2));
+
+    printf("FAIL# %d, a = %lg, b = %lg, c = %lg \n", a, b, c);
+    printf(" correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f \n", cntSolveQuadraticEquation, correctX1, correctX2);
+    printf("x1 = %.18f, x2 = $.18f \n", x1, x2);
+
 }
 
-void printOK (int numberTest){
-    printf ("OK# %d \n", numberTest);
+void printOK (int testNumber){
+    printf ("OK# %d \n", testNumber);
 }
 
-void testSolveQadraticEquation (int numberTest, double a, double b, double c, int CntSolveQadraticEquation, double user_x1, double user_x2) {
+void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
+                                 int cntSolveQuadraticEquation, double correctX1, double correctX2) {
+    assert (isfinite (a));
+    assert (isfinite (b));
+    assert (isfinite (c));
+    assert (isfinite (correctX1));
+    assert (isfinite (correctX2));
+
     double x1 = 0, x2 = 0;
-    int CntSolveEquation = solveQadraticEquation (a, b, c, &x1, &x2);
-    if (CntSolveEquation != CntSolveQadraticEquation) {
-        printFAIL (numberTest, a, b, c, CntSolveQadraticEquation, user_x1, user_x2, x1, x2);
+    int CntSolveEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
+    if (CntSolveEquation != cntSolveQuadraticEquation) {
+        printFAIL (testNumber, a, b, c, cntSolveQuadraticEquation, correctX1, correctX2, x1, x2);
         return;
     }
-    if (CntSolveQadraticEquation == 0 || CntSolveQadraticEquation == INFINITE_ROOTS_COUNT){
-        printOK (numberTest);
+    if (cntSolveQuadraticEquation == 0 || cntSolveQuadraticEquation == INFINITE_ROOTS_COUNT){
+        printOK (testNumber);
         return;
     }
 
-    if (( isEqual (x1, user_x1) && isEqual (x2, user_x2)) || (isEqual (x1, user_x2) && isEqual(x2, user_x1)) ) {
-        printOK (numberTest);
+    if (( isEqual (x1, correctX1) && isEqual (x2, correctX2)) || (isEqual (x1, correctX2) && isEqual(x2, correctX1)) ) {
+        printOK (testNumber);
         return;
     }
-    printFAIL (numberTest, a, b, c, CntSolveQadraticEquation, user_x1, user_x2, x1, x2);
+    printFAIL (testNumber, a, b, c, cntSolveQuadraticEquation, correctX1, correctX2, x1, x2);
 }
 
-void printAns (int CntSolveQadraticEquation, double *x1, double *x2) {
+void printAns (int countOfSolutionsQuadraticEquation, double *x1, double *x2) {
+    assert (x1 != NULL);
+    assert (x2 != NULL);
     assert (x1 != x2);
-    switch (CntSolveQadraticEquation) {
-        case 0: {
+
+    switch (countOfSolutionsQuadraticEquation) {
+        case 0:
             printf ("No solution");
             break;
-        }
-        case 1: {
-            printf ("One solution: x = %.18f", *x1);
-            break;
-        }
-        case 2: {
-            printf ("Two solutions: x1 = %.18f, x2 = %.18f", *x1, *x2);
-            break;
-        }
-        default: {
-            printf ("Infinitely many solutions");
-            break;
-        }
+
+            case 1:
+                printf ("One solution: x = %.18f", *x1);
+                break;
+
+                case 2:
+                    printf ("Two solutions: x1 = %.18f, x2 = %.18f", *x1, *x2);
+                    break;
+
+                    default:
+                        printf ("Infinitely many solutions");
+                        break;
+
 
     }
 }
 
-void allTest () {
-    testSolveQadraticEquation (1, 0, 4, 7, 1, -1.75, -1.75);
-    testSolveQadraticEquation (2, 0, 0, 0, INFINITE_ROOTS_COUNT, 0, 0);
-    testSolveQadraticEquation (3, -3, 0, 75, 2, -5, 5);
-    testSolveQadraticEquation (4, -2, 0, 7, 2, -1.870828693386970700, 1.870828693386970700);
-    testSolveQadraticEquation (5, 16, -8, 1, 1, 0.25, 0.25);
-    testSolveQadraticEquation (6, 9, -6, 2,0, 0, 0);
+void testAll () {
+    testSolveQuadraticEquation (1, 0, 4, 7, 1, -1.75, -1.75);
+    testSolveQuadraticEquation (2, 0, 0, 0, INFINITE_ROOTS_COUNT, 0, 0);
+    testSolveQuadraticEquation (3, -3, 0, 75, 2, -5, 5);
+    testSolveQuadraticEquation (4, -2, 0, 7, 2, -1.870828693386970700, 1.870828693386970700);
+    testSolveQuadraticEquation (5, 16, -8, 1, 1, 0.25, 0.25);
+    testSolveQuadraticEquation (6, 9, -6, 2,0, 0, 0);
 }
 
 int main () {
+
 #ifdef TEST_MODE
-    allTest ();
+    testAll ();
     return 0;
 #endif
+
+
     double a = 0, b = 0, c = 0;
     double x1 = 0, x2 = 0;
     printf ("ax^2 + bx + c = 0 \n");
     readCoefficients (&a, &b, &c);
-    int CntSolveQadraticEquation = solveQadraticEquation (a, b, c, &x1, &x2);
+    int CntSolveQadraticEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
     printAns (CntSolveQadraticEquation, &x1, &x2);
     return 0;
 }
