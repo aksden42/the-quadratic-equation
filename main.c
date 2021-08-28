@@ -2,7 +2,9 @@
 #include <math.h>
 #include <assert.h>
 #include <stdbool.h>
+
 #define TEST_MODE
+
 const int INF = 1e9;
 const double PRECISION = 1e-18;
 
@@ -16,7 +18,7 @@ bool isEqual (double x, double y) {
 
 
 int solveLinearEquation (double b, double c, double *x1, double *x2) {
-    if (isEqual (b, 0)){
+    if (isEqual (b, 0)) {
         if (isEqual (c, 0)) {
             return INF;
         }
