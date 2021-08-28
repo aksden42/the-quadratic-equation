@@ -65,7 +65,7 @@ int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2
     return 2;
 }
 
-void clear () {
+void clearConsoleBuffer () {
     while (getchar () != '\n');
 }
 
@@ -74,7 +74,7 @@ void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
 
     printf ("%c =", typeCoefficient);
     while (scanf ("%lg", pointerToCoefficient) != 1) {
-        clear ();
+        clearConsoleBuffer ();
         printf ("%c =", typeCoefficient);
     }
 }
@@ -89,8 +89,8 @@ void readCoefficients (double *a, double *b, double *c) {
     readCoefficient (c, 'c');
 }
 
-void printOK (int testNumber){
-    printf ("OK# %d \n", testNumber);
+void printOK (int testNumber) {
+    printf ("OK #%d \n", testNumber);
 }
 
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
@@ -104,7 +104,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
     double x1 = 0, x2 = 0;
     int cntSolveEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
     if (cntSolveEquation != cntSolveQuadraticEquation) {
-        printf ("FAIL# %d, a = %lg, b = %lg, c = %lg \n", a, b, c);
+        printf ("FAIL #%d, a = %lg, b = %lg, c = %lg \n", a, b, c);
         printf (" correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f \n", cntSolveQuadraticEquation, correctX1, correctX2);
         printf ("countOfSolutionsQuadraticEquation = %d, x1 = %.18f, x2 = %.18f \n", cntSolveQuadraticEquation, x1, x2);
         return;
@@ -118,7 +118,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
         printOK (testNumber);
         return;
     }
-    printf ("FAIL# %d, a = %lg, b = %lg, c = %lg \n", a, b, c);
+    printf ("FAIL #%d, a = %lg, b = %lg, c = %lg \n", a, b, c);
     printf ("correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f \n", cntSolveQuadraticEquation, correctX1, correctX2);
     printf ("countOfSolutionsQuadraticEquation = %d, x1 = %.18f, x2 = %.18f \n", cntSolveQuadraticEquation, x1, x2);
 }
