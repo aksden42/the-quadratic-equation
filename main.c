@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <math.h>
 #include "assert.h"
+#include <stdbool.h>
 
 const int INF = 1e9;
 const double EPS = 1e-18;
 
-int checkEps( double x, double y ) { // 1 -> true, 0 -> false
-    if ( fabs ( x - y ) < EPS ) return 1;
-    return 0;
+bool isEqual( double x, double y ) { // 1 -> true, 0 -> false
+    if ( fabs ( x - y ) < EPS ) return true;
+    return false;
 }
 
 int solveEquation( double a, double b, double c, double *x1, double *x2 ) {
@@ -17,9 +18,9 @@ int solveEquation( double a, double b, double c, double *x1, double *x2 ) {
     assert( x1 != NULL );
     assert( x2 != NULL );
     assert( x1 != x2 );
-    if ( checkEps ( a, 0 )) {
-        if ( checkEps ( b, 0 )) {
-            if ( checkEps ( c, 0 )) return INF;
+    if ( isEqual ( a, 0 )) {
+        if ( isEqual ( b, 0 )) {
+            if ( isEqual ( c, 0 )) return INF;
             return 0;
         }
         *x1 = *x2 = -c / b;
@@ -27,7 +28,7 @@ int solveEquation( double a, double b, double c, double *x1, double *x2 ) {
     } else {
         double D = b * b - 4 * a * c;
         if ( D < 0 ) return 0;
-        if ( checkEps ( D, 0 )) {
+        if ( isEqual ( D, 0 )) {
             *x1 = *x2 = (-b) / (2 * a);
             return 1;
         } else {
@@ -45,7 +46,7 @@ void swap( double *x1, double *x2 ) {
 }
 
 void doublePairSort( double *x1, double *x2 ) {
-    if ( !checkEps ( *x1, *x2 ) && *x1 > *x2 ) swap ( x1, x2 );
+    if ( !isEqual ( *x1, *x2 ) && *x1 > *x2 ) swap ( x1, x2 );
 }
 
 
@@ -58,7 +59,7 @@ int checkSolve( double a, double b, double c, int cnt_user_solve, double user_x1
     if ( cnt_user_solve == INF || cnt_user_solve == 0 ) return 1;
     doublePairSort ( &user_x1, &user_x2 );
     doublePairSort ( &x1, &x2 );
-    return checkEps ( x1, user_x1 ) && checkEps ( x2, user_x2 );
+    return isEqual ( x1, user_x1 ) && isEqual ( x2, user_x2 );
 }
 
 int main() {
