@@ -11,11 +11,11 @@ const double PRECISION = 1e-18;
 bool isEqual (double x, double y) {
     assert (isfinite (x));
     assert (isfinite (y));
-    
+
     if (fabs (x - y) < PRECISION) {
         return true;
     }
-    
+
     return false;
 }
 
@@ -30,7 +30,7 @@ int solveLinearEquation (double b, double c, double *x1, double *x2) {
         if (isEqual (c, 0)) {
             return INFINITE_ROOTS_COUNT;
         }
-        
+
         return 0;
     }
 
@@ -80,9 +80,10 @@ void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
 }
 
 void readCoefficients (double *a, double *b, double *c) {
-    assert (a != b);
-    assert (a != c);
-    assert (b != c);
+    assert (a != NULL);
+    assert (b != NULL);
+    assert (c != NULL);
+
 
     readCoefficient (a, 'a');
     readCoefficient (b, 'b');
