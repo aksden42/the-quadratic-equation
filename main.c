@@ -123,7 +123,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
         return;
     }
 
-    if (( isEqual (x1, correctX1) && isEqual (x2, correctX2)) || (isEqual (x1, correctX2) && isEqual(x2, correctX1)) ) {
+    if (( isEqual (x1, correctX1) && isEqual (x2, correctX2)) || (isEqual (x1, correctX2) && isEqual (x2, correctX1)) ) {
         printOK (testNumber);
         return;
     }
