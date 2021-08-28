@@ -43,6 +43,7 @@ int solveQadraticEquation (double a, double b, double c, double *x1, double *x2)
     if (D < 0) {
         return 0;
     }
+
     if (isEqual (D, 0)) {
         *x1 = *x2 = (-b) / (2 * a);
         return 1;
@@ -53,13 +54,13 @@ int solveQadraticEquation (double a, double b, double c, double *x1, double *x2)
     return 2;
 }
 
-void clear (){
+void clear () {
     while (getchar () != '\n');
 }
 
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
     printf ("%c =", typeCoefficient);
-    while(scanf ("%lg", pointerToCoefficient) != 1) {
+    while (scanf ("%lg", pointerToCoefficient) != 1) {
         clear ();
         printf ("%c =", typeCoefficient);
     }
