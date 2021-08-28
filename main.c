@@ -105,11 +105,11 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
     int cntSolveEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
     if (cntSolveEquation != cntSolveQuadraticEquation) {
         printf ("FAIL #%d, a = %lg, b = %lg, c = %lg \n", a, b, c);
-        printf (" correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f \n", cntSolveQuadraticEquation, correctX1, correctX2);
+        printf ("correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f \n", cntSolveQuadraticEquation, correctX1, correctX2);
         printf ("countOfSolutionsQuadraticEquation = %d, x1 = %.18f, x2 = %.18f \n", cntSolveQuadraticEquation, x1, x2);
         return;
     }
-    if (cntSolveQuadraticEquation == 0 || cntSolveQuadraticEquation == INFINITE_ROOTS_COUNT){
+    if (cntSolveQuadraticEquation == 0 || cntSolveQuadraticEquation == INFINITE_ROOTS_COUNT) {
         printOK (testNumber);
         return;
     }
