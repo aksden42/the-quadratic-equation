@@ -158,14 +158,12 @@ void testAll () {
 }
 
 int main () {
-
 #ifdef TEST_MODE
-
     testAll ();
-
     return 0;
-
 #endif
+    
+    
     double a = 0, b = 0, c = 0;
     double x1 = 0, x2 = 0;
     printf ("ax^2 + bx + c = 0 \n");
