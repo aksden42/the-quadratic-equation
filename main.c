@@ -7,7 +7,10 @@ const int INF = 1e9;
 const double EPS = 1e-18;
 
 bool isEqual( double x, double y ) { // 1 -> true, 0 -> false
-    if ( fabs ( x - y ) < EPS ) return true;
+    if ( fabs ( x - y ) < EPS )
+    {
+        return true;
+    }
     return false;
 }
 
@@ -50,13 +53,13 @@ void doublePairSort( double *x1, double *x2 ) {
 }
 
 
-int checkSolve( double a, double b, double c, int cnt_user_solve, double user_x1, double user_x2 ) {
+bool checkSolve( double a, double b, double c, int cnt_user_solve, double user_x1, double user_x2 ) {
     double x1 = 0, x2 = 0;
     int cnt_program_solve = solveEquation ( a, b, c, &x1, &x2 );
     if ( cnt_program_solve != cnt_user_solve ) {
-        return 0;
+        return false;
     }
-    if ( cnt_user_solve == INF || cnt_user_solve == 0 ) return 1;
+    if ( cnt_user_solve == INF || cnt_user_solve == 0 ) return true;
     doublePairSort ( &user_x1, &user_x2 );
     doublePairSort ( &x1, &x2 );
     return isEqual ( x1, user_x1 ) && isEqual ( x2, user_x2 );
