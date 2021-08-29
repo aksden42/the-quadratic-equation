@@ -18,7 +18,7 @@ bool isEqual (double x, double y);
 void printOK (int testNumber);
 void readCoefficients (double *a, double *b, double *c);
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient);
-void clearConsoleBuffer();
+void clearConsoleBuffer ();
 void printAns (int countOfSolutionsQuadraticEquation, double *x1, double *x2);
 
 int main () {
@@ -38,7 +38,7 @@ int main () {
     return 0;
 }
 
-void testAll() {
+void testAll () {
     testSolveQuadraticEquation (1,  0,  4,  7,                    1, -1.750, -1.750);
     testSolveQuadraticEquation (2,  0,  0,  0, INFINITE_ROOTS_COUNT, 0.0000,  0.000);
     testSolveQuadraticEquation (3, -3,  0, 75,                    2, -5.000,  5.000);
@@ -47,7 +47,7 @@ void testAll() {
     testSolveQuadraticEquation (6,  9, -6,  2,                    0,  0.000,  0.000);
 }
 
-void testSolveQuadraticEquation(int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
+void testSolveQuadraticEquation (int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
                                 double correctX2) {
     assert (isfinite (a));
     assert (isfinite (b));
@@ -73,7 +73,7 @@ void testSolveQuadraticEquation(int testNumber, double a, double b, double c, in
     printOK (testNumber);
 }
 
-int solveQuadraticEquation(double a, double b, double c, double *x1, double *x2) {
+int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
     assert (isfinite (b));
     assert (isfinite (c));
@@ -119,7 +119,7 @@ int solveLinearEquation (double k, double b, double *x1, double *x2) { // kx + b
     return 1;
 }
 
-bool isEqual(double x, double y) {
+bool isEqual (double x, double y) {
     assert (isfinite (x));
     assert (isfinite (y));
 
@@ -130,11 +130,11 @@ bool isEqual(double x, double y) {
     return false;
 }
 
-void printOK(int testNumber) {
+void printOK (int testNumber) {
     printf ("OK #%d \n", testNumber);
 }
 
-void readCoefficients(double *a, double *b, double *c) {
+void readCoefficients (double *a, double *b, double *c) {
     assert (a != NULL);
     assert (b != NULL);
     assert (c != NULL);
@@ -144,7 +144,7 @@ void readCoefficients(double *a, double *b, double *c) {
     readCoefficient (c, 'c');
 }
 
-void readCoefficient(double *pointerToCoefficient, char typeCoefficient) {
+void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
     assert (pointerToCoefficient != NULL);
 
     printf ("%c =", typeCoefficient);
@@ -154,7 +154,7 @@ void readCoefficient(double *pointerToCoefficient, char typeCoefficient) {
     }
 }
 
-void clearConsoleBuffer() {
+void clearConsoleBuffer () {
     while (getchar () != '\n');
 }
 
