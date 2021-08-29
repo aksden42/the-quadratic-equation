@@ -92,7 +92,7 @@ void testSolveLinearEquation(int testNumber, int correctRootsCount, double k, do
         printf ("countSolves = %d, x = %lg", rootsCount, x);
         return;
     }
-    printOK(testNumber);
+    printOK (testNumber);
 }
 
 void testIsEqual(int testNumber, double x, double y, bool correctAnswer){
@@ -104,7 +104,7 @@ void testIsEqual(int testNumber, double x, double y, bool correctAnswer){
         printf ("answer = %d\n", answer);
         return;
     }
-    printOK(testNumber);
+    printOK (testNumber);
 }
 
 
