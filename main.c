@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <math.h>
 #include <assert.h>
+#include <math.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #define TEST_MODE
 
@@ -19,7 +19,7 @@ void printOK (int testNumber);
 void readCoefficients (double *a, double *b, double *c);
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient);
 void clearConsoleBuffer ();
-void printAns (int countOfSolutionsQuadraticEquation, double *x1, double *x2);
+void printAnswer (int rootsCount, double x1, double x2);
 
 int main () {
     #ifdef TEST_MODE
@@ -34,7 +34,7 @@ int main () {
 
     double x1 = 0, x2 = 0;
     int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
-    printAns (rootsCount, &x1, &x2);
+    printAnswer (rootsCount, x1, x2);
     return 0;
 }
 
@@ -57,7 +57,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
 
     double x1 = 0, x2 = 0;
     int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
-    if (correctRootsCount == INFINITE_ROOTS_COUNT || (rootsCount == correctRootsCount && correctRootsCount == 0)) {
+    if (rootsCount == correctRootsCount && (rootsCount == INFINITE_ROOTS_COUNT || rootsCount == 0)) {
         printOK (testNumber);
         return;
     }
@@ -157,7 +157,7 @@ void clearConsoleBuffer () {
     while (getchar () != '\n');
 }
 
-void printAns (int rootsCount, double *x1, double *x2) {
+void printAnswer (int rootsCount, double x1, double x2) {
     assert (x1 != NULL);
     assert (x2 != NULL);
     assert (x1 != x2);
@@ -168,11 +168,11 @@ void printAns (int rootsCount, double *x1, double *x2) {
             break;
 
         case 1:
-            printf ("One solution: x = %.18f\n", *x1);
+            printf ("One solution: x = %.18f\n", x1);
             break;
 
         case 2:
-            printf ("Two solutions: x1 = %.18f, x2 = %.18f\n", *x1, *x2);
+            printf ("Two solutions: x1 = %.18f, x2 = %.18f\n", x1, x2);
             break;
 
         default:
