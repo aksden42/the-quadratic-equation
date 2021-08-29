@@ -68,7 +68,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
 
     if (rootsCount != correctRootsCount || ((!isEqual (x1, correctX1) || !isEqual (x2, correctX2)) &&
     (!isEqual (x1, correctX2) || !isEqual (x2, correctX1)))) {
-        printf("Error in Quadratic Equation\n");
+        printf ("Error in Quadratic Equation\n");
         printf ("FAIL #%d, a = %lg, b = %lg, c = %lg\n", testNumber, a, b, c);
         printf ("correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f\n", correctRootsCount, correctX1, correctX2);
         printf ("countSolves = %d, x1 = %.18f, x2 = %.18f\n", rootsCount, x1, x2);
@@ -89,7 +89,7 @@ void testSolveLinearEquation(int testNumber, int correctRootsCount, double k, do
         printf ("Error in Linear Equation\n");
         printf ("FAIL #%d, k = %lg, b = %lg\n", testNumber, k, b);
         printf ("correctRootsNumber = %d, correctX = %lg", correctRootsCount, correctX);
-        printf("countSolves = %d, x = %lg", rootsCount, x);
+        printf ("countSolves = %d, x = %lg", rootsCount, x);
         return;
     }
     printOK(testNumber);
@@ -98,10 +98,10 @@ void testSolveLinearEquation(int testNumber, int correctRootsCount, double k, do
 void testIsEqual(int testNumber, double x, double y, bool correctAnswer){
     bool answer = isEqual (x, y);
     if (answer != correctAnswer){
-        printf("Error in IsEqual\n", PRECISION);
-        printf("FAIl #%d, x = %lg, y = %lg\n", testNumber, x, y);
-        printf("correctAnswer = %d\n", correctAnswer);
-        printf("answer = %d\n", answer);
+        printf ("Error in IsEqual\n", PRECISION);
+        printf ("FAIl #%d, x = %lg, y = %lg\n", testNumber, x, y);
+        printf ("correctAnswer = %d\n", correctAnswer);
+        printf ("answer = %d\n", answer);
         return;
     }
     printOK(testNumber);
