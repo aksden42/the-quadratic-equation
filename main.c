@@ -13,7 +13,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
                                  int correctRootsCount, double correctX1, double correctX2);
 
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2);
-int solveLinearEquation (double b, double c, double *x1, double *x2);
+int solveLinearEquation (double b, double c, double *x);
 bool isEqual (double x, double y);
 void printOK (int testNumber);
 void readCoefficients (double *a, double *b, double *c);
@@ -33,18 +33,18 @@ int main () {
     readCoefficients (&a, &b, &c);
 
     double x1 = 0, x2 = 0;
-    int CntSolveQuadraticEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
-    printAns (CntSolveQuadraticEquation, &x1, &x2);
+    int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
+    printAns (rootsCount, &x1, &x2);
     return 0;
 }
 
 void testAll () {
-    testSolveQuadraticEquation (1,  0,  4,  7,                    1, -1.750, -1.750);
-    testSolveQuadraticEquation (2,  0,  0,  0, INFINITE_ROOTS_COUNT, 0.0000,  0.000);
-    testSolveQuadraticEquation (3, -3,  0, 75,                    2, -5.000,  5.000);
-    testSolveQuadraticEquation (4, -2,  0,  7,                    2, -1.870,  1.870);
-    testSolveQuadraticEquation (5, 16, -8,  1,                    1,  0.250,  0.250);
-    testSolveQuadraticEquation (6,  9, -6,  2,                    0,  0.000,  0.000);
+    testSolveQuadraticEquation (1,  0,  4,  7,                    1, -1.750, 0.000);
+    testSolveQuadraticEquation (2,  0,  0,  0, INFINITE_ROOTS_COUNT, 0.0000, 0.000);
+    testSolveQuadraticEquation (3, -3,  0, 75,                    2, -5.000, 5.000);
+    testSolveQuadraticEquation (4, -2,  0,  7,                    2, -1.870, 1.870);
+    testSolveQuadraticEquation (5, 16, -8,  1,                    1,  0.250, 0.250);
+    testSolveQuadraticEquation (6,  9, -6,  2,                    0,  0.000, 0.000);
 }
 
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
@@ -57,7 +57,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
 
     double x1 = 0, x2 = 0;
     int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
-    if (rootsCount == correctRootsCount && correctRootsCount == 0 || correctRootsCount == INFINITE_ROOTS_COUNT) {
+    if (correctRootsCount == INFINITE_ROOTS_COUNT || rootsCount == correctRootsCount && correctRootsCount == 0) {
         printOK (testNumber);
         return;
     }
@@ -82,7 +82,7 @@ int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2
     assert (x1 != x2);
 
     if (isEqual (a, 0)) {
-        return solveLinearEquation (b, c, x1, x2);
+        return solveLinearEquation (b, c, x1);
     }
 
     double D = b * b - 4 * a * c;
@@ -94,18 +94,17 @@ int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2
         *x1 = *x2 = (-b) / (2 * a);
         return 1;
     }
+
     double sqrtD = sqrt (D);
     *x1 = (-b + sqrtD) / (2 * a);
     *x2 = (-b - sqrtD) / (2 * a);
     return 2;
 }
 
-int solveLinearEquation (double k, double b, double *x1, double *x2) { // kx + b = 0
+int solveLinearEquation (double k, double b, double *x) { // kx + b = 0
     assert (isfinite (k));
     assert (isfinite (b));
-    assert (x1 != NULL);
-    assert (x2 != NULL);
-    assert (x1 != x2);
+    assert (x != NULL);
 
     if (isEqual (k, 0)) {
         if (isEqual (b, 0)) {
@@ -115,7 +114,7 @@ int solveLinearEquation (double k, double b, double *x1, double *x2) { // kx + b
         return 0;
     }
 
-    *x1 = *x2 = -b / k;
+    *x = -b / k;
     return 1;
 }
 
