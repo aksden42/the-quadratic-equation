@@ -57,7 +57,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
 
     double x1 = 0, x2 = 0;
     int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
-    if (correctRootsCount == INFINITE_ROOTS_COUNT || rootsCount == correctRootsCount && correctRootsCount == 0) {
+    if (correctRootsCount == INFINITE_ROOTS_COUNT || (rootsCount == correctRootsCount && correctRootsCount == 0)) {
         printOK (testNumber);
         return;
     }
