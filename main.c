@@ -6,7 +6,7 @@
 #define TEST_MODE
 
 const int INFINITE_ROOTS_COUNT = -1;
-const double PRECISION = 1e-18;
+const double PRECISION = 1e-3;
 
 void testAll ();
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
@@ -28,21 +28,23 @@ int main () {
     #endif
 
     double a = 0, b = 0, c = 0;
-    double x1 = 0, x2 = 0;
+
     printf ("ax^2 + bx + c = 0 \n");
     readCoefficients (&a, &b, &c);
+
+    double x1 = 0, x2 = 0;
     int CntSolveQuadraticEquation = solveQuadraticEquation (a, b, c, &x1, &x2);
     printAns (CntSolveQuadraticEquation, &x1, &x2);
     return 0;
 }
 
 void testAll() {
-    testSolveQuadraticEquation (1, 0, 4, 7, 1, -1.75, -1.75);
-    testSolveQuadraticEquation (2, 0, 0, 0, INFINITE_ROOTS_COUNT, 0, 0);
-    testSolveQuadraticEquation (3, -3, 0, 75, 2, -5, 5);
-    testSolveQuadraticEquation (4, -2, 0, 7, 2, -1.870828693386970700, 1.870828693386970700);
-    testSolveQuadraticEquation (5, 16, -8, 1, 1, 0.25, 0.25);
-    testSolveQuadraticEquation (6, 9, -6, 2,0, 0, 0);
+    testSolveQuadraticEquation (1,  0,  4,  7,                    1, -1.750, -1.750);
+    testSolveQuadraticEquation (2,  0,  0,  0, INFINITE_ROOTS_COUNT, 0.0000,  0.000);
+    testSolveQuadraticEquation (3, -3,  0, 75,                    2, -5.000,  5.000);
+    testSolveQuadraticEquation (4, -2,  0,  7,                    2, -1.870,  1.870);
+    testSolveQuadraticEquation (5, 16, -8,  1,                    1,  0.250,  0.250);
+    testSolveQuadraticEquation (6,  9, -6,  2,                    0,  0.000,  0.000);
 }
 
 void testSolveQuadraticEquation(int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
@@ -64,7 +66,7 @@ void testSolveQuadraticEquation(int testNumber, double a, double b, double c, in
     (!isEqual (x1, correctX2) || !isEqual (x2, correctX1)))) {
         printf ("FAIL #%d, a = %lg, b = %lg, c = %lg\n", testNumber, a, b, c);
         printf ("correctCountSolves = %d, correctX1 = %.18f, correctX2 = %.18f\n", correctRootsCount, correctX1, correctX2);
-        printf ("countSolves = %d, x1 = %.18f, x2 = %.18f\n",rootsCount, x1, x2);
+        printf ("countSolves = %d, x1 = %.18f, x2 = %.18f\n", rootsCount, x1, x2);
         return;
     }
 
@@ -156,12 +158,12 @@ void clearConsoleBuffer() {
     while (getchar () != '\n');
 }
 
-void printAns (int countOfSolutionsQuadraticEquation, double *x1, double *x2) {
+void printAns (int rootsCount, double *x1, double *x2) {
     assert (x1 != NULL);
     assert (x2 != NULL);
     assert (x1 != x2);
 
-    switch (countOfSolutionsQuadraticEquation) {
+    switch (rootsCount) {
         case 0:
             printf ("No solution\n");
             break;
