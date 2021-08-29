@@ -9,24 +9,16 @@ const int INFINITE_ROOTS_COUNT = -1;
 const double PRECISION = 1e-18;
 
 void testAll ();
-
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
                                  int correctRootsCount, double correctX1, double correctX2);
 
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2);
-
 int solveLinearEquation (double b, double c, double *x1, double *x2);
-
 bool isEqual (double x, double y);
-
 void printOK (int testNumber);
-
 void readCoefficients (double *a, double *b, double *c);
-
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient);
-
 void clearConsoleBuffer();
-
 void printAns (int countOfSolutionsQuadraticEquation, double *x1, double *x2);
 
 int main () {
