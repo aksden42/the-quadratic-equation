@@ -11,8 +11,8 @@ const double PRECISION = 1e-3;
 void testAll ();
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
                                  int correctRootsCount, double correctX1, double correctX2);
-void testSolveLinearEquation(int testNumber, int correctRootsCount, double k, double b, double correctX);
-void testIsEqual(int testNumber, double x, double y, bool correctAnswer);
+void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, double b, double correctX);
+void testIsEqual (int testNumber, double x, double y, bool correctAnswer);
 
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2);
 int solveLinearEquation (double b, double c, double *x);
@@ -25,8 +25,8 @@ void printAnswer (int rootsCount, double x1, double x2);
 
 int main () {
     #ifdef TEST_MODE
-    testAll ();
-    return 0;
+        testAll ();
+        return 0;
     #endif
 
     double a = 0, b = 0, c = 0;
@@ -41,18 +41,22 @@ int main () {
 }
 
 void testAll () {
-
+    printf ("Test is Equal:\n");
     testIsEqual (1, 0.0345, 0.0348, true);
     testIsEqual (2, 1.2451, 1.2660, false);
+    printf("\n");
 
-    testSolveLinearEquation (3,                    1, 4, 7, -1.750);
-    testSolveLinearEquation (4,                    0, 0, 9, 0.0000);
-    testSolveLinearEquation (5, INFINITE_ROOTS_COUNT, 0, 0, 0.0000);
+    printf ("Test solve linear equation:\n");
+    testSolveLinearEquation (1,                    1, 4, 7, -1.750);
+    testSolveLinearEquation (2,                    0, 0, 9, 0.0000);
+    testSolveLinearEquation (3, INFINITE_ROOTS_COUNT, 0, 0, 0.0000);
+    printf("\n");
 
-    testSolveQuadraticEquation (6, -3,  0, 75,                    2, -5.000, 5.000);
-    testSolveQuadraticEquation (7, -2,  0,  7,                    2, -1.870, 1.870);
-    testSolveQuadraticEquation (8, 16, -8,  1,                    1,  0.250, 0.250);
-    testSolveQuadraticEquation (9,  9, -6,  2,                    0,  0.000, 0.000);
+    printf ("Test solve Quadratic Equation:\n");
+    testSolveQuadraticEquation (1, -3,  0, 75,                    2, -5.000, 5.000);
+    testSolveQuadraticEquation (2, -2,  0,  7,                    2, -1.870, 1.870);
+    testSolveQuadraticEquation (3, 16, -8,  1,                    1,  0.250, 0.250);
+    testSolveQuadraticEquation (4,  9, -6,  2,                    0,  0.000, 0.000);
 }
 
 void testSolveQuadraticEquation (int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
@@ -92,6 +96,7 @@ void testSolveLinearEquation(int testNumber, int correctRootsCount, double k, do
         printf ("countSolves = %d, x = %lg", rootsCount, x);
         return;
     }
+
     printOK (testNumber);
 }
 
@@ -104,6 +109,7 @@ void testIsEqual(int testNumber, double x, double y, bool correctAnswer){
         printf ("answer = %d\n", answer);
         return;
     }
+
     printOK (testNumber);
 }
 
@@ -193,9 +199,8 @@ void clearConsoleBuffer () {
 }
 
 void printAnswer (int rootsCount, double x1, double x2) {
-    assert (x1 != NULL);
-    assert (x2 != NULL);
-    assert (x1 != x2);
+    assert (isfinite (x1));
+    assert (isfinite (x2));
 
     switch (rootsCount) {
         case 0:
@@ -203,11 +208,11 @@ void printAnswer (int rootsCount, double x1, double x2) {
             break;
 
         case 1:
-            printf ("One solution: x = %.18f\n", x1);
+            printf ("One solution: x = %.4f\n", x1);
             break;
 
         case 2:
-            printf ("Two solutions: x1 = %.18f, x2 = %.18f\n", x1, x2);
+            printf ("Two solutions: x1 = %.4f, x2 = %.4f\n", x1, x2);
             break;
 
         default:
