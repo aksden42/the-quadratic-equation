@@ -55,7 +55,7 @@ void testAll () {
     printf ("Test solveQuadraticEquation:\n");
     testSolveQuadraticEquation (1, -3,  0, 75, 2, -5.000, 5.000);
     testSolveQuadraticEquation (2, -2,  0,  7, 2, -1.870, 1.870);
-    testSolveQuadraticEquation (3, 16, -8,  1, 1,  0.250, 0.250);
+    testSolveQuadraticEquation (3, 16, -8,  1, 1,  0.250, 0.000);
     testSolveQuadraticEquation (4,  9, -6,  2, 0,  0.000, 0.000);
 }
 
@@ -75,7 +75,7 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
         printf ("Error in Quadratic Equation\n");
         printf ("FAIL #%d, a = %lg, b = %lg, c = %lg\n", testNumber, a, b, c);
         printf ("correctCountSolves = %d, correctX1 = %.2f, correctX2 = %.2f\n", correctRootsCount, correctX1, correctX2);
-        printf ("countSolves =        %d, x1        = %.2f, x2        = %.2f\n", rootsCount, x1, x2);
+        printf ("countSolves        = %d, x1        = %.2f, x2        = %.2f\n", rootsCount, x1, x2);
         return;
     }
 
@@ -124,6 +124,9 @@ int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2
     assert (x2 != NULL);
     assert (x1 != x2);
 
+    *x1 = 0;
+    *x2 = 0;
+
     if (isEqual (a, 0)) {
         return solveLinearEquation (b, c, x1);
     }
@@ -134,7 +137,7 @@ int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2
     }
 
     if (isEqual (D, 0)) {
-        *x1 = *x2 = (-b) / (2 * a);
+        *x1 = (-b) / (2 * a);
         return 1;
     }
 
@@ -222,4 +225,3 @@ void printAnswer (int rootsCount, double x1, double x2) {
             break;
     }
 }
-
