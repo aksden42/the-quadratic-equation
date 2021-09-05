@@ -115,7 +115,6 @@ void testIsEqual (int testNumber, double x, double y, bool correctAnswer) {
     printOK (testNumber);
 }
 
-
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
     assert (isfinite (b));
