@@ -106,7 +106,7 @@ void testIsEqual (int testNumber, double x, double y, bool correctAnswer) {
 
     if (answer != correctAnswer) {
         printf ("Error in IsEqual\n", PRECISION);
-        printf ("FAIl #%d, x = %.4lf, y = %.4lf\n", testNumber, x, y);
+        printf ("FAIl #%d, x = %lg, y = %lg\n", testNumber, x, y);
         printf ("correctAnswer = %d\n", correctAnswer);
         printf ("answer        = %d\n", answer);
         return;
