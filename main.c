@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define TEST_MODE
+//#define TEST_MODE
 
 const int INFINITE_ROOTS_COUNT = -1;
 const double PRECISION = 1e-3;
@@ -74,8 +74,8 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
     (!isEqual (x1, correctX2) || !isEqual (x2, correctX1)))) {
         printf ("Error in Quadratic Equation\n");
         printf ("FAIL #%d, a = %lg, b = %lg, c = %lg\n", testNumber, a, b, c);
-        printf ("correctCountSolves = %d, correctX1 = %.2f, correctX2 = %.2f\n", correctRootsCount, correctX1, correctX2);
-        printf ("countSolves        = %d, x1        = %.2f, x2        = %.2f\n", rootsCount, x1, x2);
+        printf ("correctCountSolves = %d, correctX1 = %.2lf, correctX2 = %.2lf\n", correctRootsCount, correctX1, correctX2);
+        printf ("countSolves        = %d, x1        = %.2lf, x2        = %.2lf\n", rootsCount, x1, x2);
         return;
     }
 
@@ -93,8 +93,8 @@ void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, d
     if (rootsCount != correctRootsCount || !isEqual (x, correctX)) {
         printf ("Error in Linear Equation\n");
         printf ("FAIL #%d, k = %lg, b = %lg\n", testNumber, k, b);
-        printf ("correctRootsNumber = %d, correctX = %lg", correctRootsCount, correctX);
-        printf ("countSolves        = %d, x        = %lg", rootsCount, x);
+        printf ("correctRootsNumber = %d, correctX = %.2lf", correctRootsCount, correctX);
+        printf ("countSolves        = %d, x        = %.2lf", rootsCount, x);
         return;
     }
 
@@ -106,7 +106,7 @@ void testIsEqual (int testNumber, double x, double y, bool correctAnswer) {
 
     if (answer != correctAnswer) {
         printf ("Error in IsEqual\n", PRECISION);
-        printf ("FAIl #%d, x = %lg, y = %lg\n", testNumber, x, y);
+        printf ("FAIl #%d, x = %.4lf, y = %.4lf\n", testNumber, x, y);
         printf ("correctAnswer = %d\n", correctAnswer);
         printf ("answer        = %d\n", answer);
         return;
@@ -217,7 +217,7 @@ void printAnswer (int rootsCount, double x1, double x2) {
             break;
 
         case 2:
-            printf ("Two solutions: x1 = %.2f, x2 = %.2f\n", x1, x2);
+            printf ("Two solutions: x1 = %.2lf, x2 = %.2lf\n", x1, x2);
             break;
 
         default:
