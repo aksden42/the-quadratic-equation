@@ -137,7 +137,7 @@ void printAnswer (int rootsCount, double x1, double x2) {
             break;
 
         case 1:
-            printf ("One solution: x = %.2f\n", x1);
+            printf ("One solution: x = %.2lf\n", x1);
             break;
 
         case 2:
