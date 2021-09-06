@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-//#define TEST_MODE
+#define TEST_MODE
 
 const int INFINITE_ROOTS_COUNT = -1;
 const double PRECISION = 1e-3;
@@ -92,11 +92,7 @@ bool isEqual (double x, double y) {
     assert (isfinite (x));
     assert (isfinite (y));
 
-    if (fabs (x - y) < PRECISION) {
-        return true;
-    }
-
-    return false;
+    return (fabs (x - y) < PRECISION);
 }
 
 void printOK (int testNumber) {
