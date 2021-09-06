@@ -116,10 +116,10 @@ void readCoefficients (double *a, double *b, double *c) {
 void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
     assert (pointerToCoefficient != NULL);
 
-    printf ("%c =", typeCoefficient);
+    printf ("%c = ", typeCoefficient);
     while (scanf ("%lf", pointerToCoefficient) != 1) {
         clearConsoleBuffer ();
-        printf ("Incorrect input. Please try again: %c =", typeCoefficient);
+        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
     }
 }
 
@@ -193,6 +193,9 @@ void testSolveQuadraticEquation (int testNumber, double a, double b, double c, i
 }
 
 void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, double b, double correctX) {
+    assert (isfinite (k));
+    assert (isfinite (b));
+
     double x = 0;
     int rootsCount = solveLinearEquation (k, b, &x);
     if (rootsCount == correctRootsCount && (rootsCount == INFINITE_ROOTS_COUNT || rootsCount == 0)) {
@@ -212,6 +215,9 @@ void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, d
 }
 
 void testIsEqual (int testNumber, double x, double y, bool correctAnswer) {
+    assert (isfinite (x));
+    assert (isfinite (y));
+
     bool answer = isEqual (x, y);
 
     if (answer != correctAnswer) {
