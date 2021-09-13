@@ -13,10 +13,4 @@ void readCoefficient        (double *pointerToCoefficient, char typeCoefficient)
 void clearConsoleBuffer     ();
 void printAnswer            (int rootsCount, double x1, double x2);
 
-void testAll                    ();
-void testSolveQuadraticEquation (int testNumber, double a, double b, double c,
-                                 int correctRootsCount, double correctX1, double correctX2);
-void testSolveLinearEquation    (int testNumber, int correctRootsCount, double k, double b, double correctX);
-void testIsEqual                (int testNumber, double x, double y, bool correctAnswer);
-
 #endif // QUADRATIC_H_INCLUDED
