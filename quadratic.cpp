@@ -3,94 +3,105 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "quadratic.h"
-#include "testQuadratic.h"
 
-IsEqualTest setIsEqualTest[2];
-
-void printOK (int testNumber) {
-    printf ("OK #%d \n", testNumber);
+void clearConsoleBuffer () {
+    while (getchar () != '\n');
 }
 
-void testAll () {
-    printf ("Test isEqual:\n");
-    setIsEqualTest[0] = {0.0345, 0.0348, true};
-    setIsEqualTest[1] = {1.2451, 1.2660, false};
-    for(int i = 0; i < 2; i++) {
-        testIsEqual(i, setIsEqualTest[i]);
+void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
+    assert (pointerToCoefficient != NULL);
+
+    printf ("%c = ", typeCoefficient);
+    while (scanf ("%lf", pointerToCoefficient) != 1) {
+        clearConsoleBuffer ();
+        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
     }
-    printf("\n");
-
-    printf ("Test solveLinearEquation:\n");
-    testSolveLinearEquation (1,                    1, 4, 7, -1.750);
-    testSolveLinearEquation (2,                    0, 0, 9, 0.0000);
-    testSolveLinearEquation (3, INFINITE_ROOTS_COUNT, 0, 0, 0.0000);
-    printf("\n");
-
-    printf ("Test solveQuadraticEquation:\n");
-    testSolveQuadraticEquation (1, -3,  0, 75, 2, -5.000, 5.000);
-    testSolveQuadraticEquation (2, -2,  0,  7, 2, -1.870, 1.870);
-    testSolveQuadraticEquation (3, 16, -8,  1, 1,  0.250, 0.000);
-    testSolveQuadraticEquation (4,  9, -6,  2, 0,  0.000, 0.000);
 }
 
-void testSolveQuadraticEquation (int testNumber, double a, double b, double c, int correctRootsCount, double correctX1,
-                                 double correctX2) {
+int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
     assert (isfinite (b));
     assert (isfinite (c));
-    assert (isfinite (correctX1));
-    assert (isfinite (correctX2));
+    assert (x1 != NULL);
+    assert (x2 != NULL);
+    assert (x1 != x2);
 
-    double x1 = 0, x2 = 0;
-    int rootsCount = solveQuadraticEquation (a, b, c, &x1, &x2);
+    *x1 = 0;
+    *x2 = 0;
 
-    if (rootsCount != correctRootsCount || ((!isEqual (x1, correctX1) || !isEqual (x2, correctX2)) &&
-    (!isEqual (x1, correctX2) || !isEqual (x2, correctX1)))) {
-        printf ("Error in Quadratic Equation\n");
-        printf ("FAIL #%d, a = %lf, b = %lf, c = %lf\n", testNumber, a, b, c);
-        printf ("correctCountSolves = %d, correctX1 = %.2lf, correctX2 = %.2lf\n", correctRootsCount, correctX1, correctX2);
-        printf ("countSolves        = %d, x1        = %.2lf, x2        = %.2lf\n", rootsCount, x1, x2);
-        return;
+    if (isEqual (a, 0)) {
+        return solveLinearEquation (b, c, x1);
     }
 
-    printOK (testNumber);
+    double D = b * b - 4 * a * c;
+    if (D < 0) {
+        return 0;
+    }
+
+    if (isEqual (D, 0)) {
+        *x1 = (-b) / (2 * a);
+        return 1;
+    }
+
+    double sqrtD = sqrt (D);
+    *x1 = (-b + sqrtD) / (2 * a);
+    *x2 = (-b - sqrtD) / (2 * a);
+    return 2;
 }
 
-void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, double b, double correctX) {
+int solveLinearEquation (double k, double b, double *x) { // kx + b = 0
     assert (isfinite (k));
     assert (isfinite (b));
+    assert (x != NULL);
 
-    double x = 0;
-    int rootsCount = solveLinearEquation (k, b, &x);
-    if (rootsCount == correctRootsCount && (rootsCount == INFINITE_ROOTS_COUNT || rootsCount == 0)) {
-        printOK (testNumber);
-        return;
+    if (isEqual (k, 0)) {
+        if (isEqual (b, 0)) {
+            return INFINITE_ROOTS_COUNT;
+        }
+
+        return 0;
     }
 
-    if (rootsCount != correctRootsCount || !isEqual (x, correctX)) {
-        printf ("Error in Linear Equation\n");
-        printf ("FAIL #%d, k = %lf, b = %lf\n", testNumber, k, b);
-        printf ("correctRootsNumber = %d, correctX = %.2lf", correctRootsCount, correctX);
-        printf ("countSolves        = %d, x        = %.2lf", rootsCount, x);
-        return;
-    }
-
-    printOK (testNumber);
+    *x = -b / k;
+    return 1;
 }
 
-void testIsEqual (int testNumber, IsEqualTest test) {
-    assert (isfinite (test.x));
-    assert (isfinite (test.y));
+bool isEqual (double x, double y) {
+    assert (isfinite (x));
+    assert (isfinite (y));
 
-    bool answer = isEqual (test.x, test.y);
+    return (fabs (x - y) < PRECISION);
+}
 
-    if (answer != test.correctAnswer) {
-        printf ("Error in IsEqual\n", PRECISION);
-        printf ("FAIl #%d, x = %lf, y = %lf\n", testNumber, test.x, test.y);
-        printf ("correctAnswer = %d\n", test.correctAnswer);
-        printf ("answer        = %d\n", answer);
-        return;
+void readCoefficients (double *a, double *b, double *c) {
+    assert (a != NULL);
+    assert (b != NULL);
+    assert (c != NULL);
+
+    readCoefficient (a, 'a');
+    readCoefficient (b, 'b');
+    readCoefficient (c, 'c');
+}
+
+void printAnswer (int rootsCount, double x1, double x2) {
+    assert (isfinite (x1));
+    assert (isfinite (x2));
+
+    switch (rootsCount) {
+        case 0:
+            printf ("No solution\n");
+            break;
+
+        case 1:
+            printf ("One solution: x = %.2lf\n", x1);
+            break;
+
+        case 2:
+            printf ("Two solutions: x1 = %.2lf, x2 = %.2lf\n", x1, x2);
+            break;
+
+        default:
+            printf ("Infinitely many solutions\n");
+            break;
     }
-
-    printOK (testNumber);
 }
