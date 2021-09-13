@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "quadratic.h"
+#include "testQuadratic.h"
 
 #define TEST_MODE
-
 
 int main()
 {
