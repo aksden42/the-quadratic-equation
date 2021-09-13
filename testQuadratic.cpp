@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "quadratic.h"
+#include "testQuadratic.h"
 
 void testAll () {
     printf ("Test isEqual:\n");
