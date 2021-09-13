@@ -1,8 +1,16 @@
 #include <stdio.h>
 #include "quadratic.h"
 
+#define TEST_MODE
+
+
 int main()
 {
+    #ifdef TEST_MODE
+        testAll ();
+        return 0;
+    #endif
+
     double a = 0, b = 0, c = 0;
 
     printf ("ax^2 + bx + c = 0 \n");
