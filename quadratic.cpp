@@ -4,19 +4,9 @@
 #include <stdio.h>
 #include "quadratic.h"
 
-void clearConsoleBuffer () {
-    while (getchar () != '\n');
-}
+void clearConsoleBuffer ();
 
-void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
-    assert (pointerToCoefficient != NULL);
-
-    printf ("%c = ", typeCoefficient);
-    while (scanf ("%lf", pointerToCoefficient) != 1) {
-        clearConsoleBuffer ();
-        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
-    }
-}
+void readCoefficient (double *pointerToCoefficient, char typeCoefficient);
 
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
@@ -103,5 +93,19 @@ void printAnswer (int rootsCount, double x1, double x2) {
         default:
             printf ("Infinitely many solutions\n");
             break;
+    }
+}
+
+void clearConsoleBuffer () {
+    while (getchar () != '\n');
+}
+
+void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
+    assert (pointerToCoefficient != NULL);
+
+    printf ("%c = ", typeCoefficient);
+    while (scanf ("%lf", pointerToCoefficient) != 1) {
+        clearConsoleBuffer ();
+        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
     }
 }
