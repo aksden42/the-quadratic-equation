@@ -4,6 +4,20 @@
 #include <stdio.h>
 #include "quadratic.h"
 
+void clearConsoleBuffer () {
+    while (getchar () != '\n');
+}
+
+void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
+    assert (pointerToCoefficient != NULL);
+
+    printf ("%c = ", typeCoefficient);
+    while (scanf ("%lf", pointerToCoefficient) != 1) {
+        clearConsoleBuffer ();
+        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
+    }
+}
+
 int solveQuadraticEquation (double a, double b, double c, double *x1, double *x2) {
     assert (isfinite (a));
     assert (isfinite (b));
@@ -59,10 +73,6 @@ bool isEqual (double x, double y) {
     return (fabs (x - y) < PRECISION);
 }
 
-void printOK (int testNumber) {
-    printf ("OK #%d \n", testNumber);
-}
-
 void readCoefficients (double *a, double *b, double *c) {
     assert (a != NULL);
     assert (b != NULL);
@@ -71,20 +81,6 @@ void readCoefficients (double *a, double *b, double *c) {
     readCoefficient (a, 'a');
     readCoefficient (b, 'b');
     readCoefficient (c, 'c');
-}
-
-void readCoefficient (double *pointerToCoefficient, char typeCoefficient) {
-    assert (pointerToCoefficient != NULL);
-
-    printf ("%c = ", typeCoefficient);
-    while (scanf ("%lf", pointerToCoefficient) != 1) {
-        clearConsoleBuffer ();
-        printf ("Incorrect input. Please try again: %c = ", typeCoefficient);
-    }
-}
-
-void clearConsoleBuffer () {
-    while (getchar () != '\n');
 }
 
 void printAnswer (int rootsCount, double x1, double x2) {
