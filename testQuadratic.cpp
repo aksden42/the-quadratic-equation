@@ -5,14 +5,19 @@
 #include "quadratic.h"
 #include "testQuadratic.h"
 
+IsEqualTest setIsEqualTest[2];
+
 void printOK (int testNumber) {
     printf ("OK #%d \n", testNumber);
 }
 
 void testAll () {
     printf ("Test isEqual:\n");
-    testIsEqual (1, 0.0345, 0.0348, true);
-    testIsEqual (2, 1.2451, 1.2660, false);
+    setIsEqualTest[0] = {0.0345, 0.0348, true};
+    setIsEqualTest[1] = {1.2451, 1.2660, false};
+    for(int i = 0; i < 2; i++) {
+        testIsEqual(i, setIsEqualTest[i]);
+    }
     printf("\n");
 
     printf ("Test solveLinearEquation:\n");
@@ -73,16 +78,16 @@ void testSolveLinearEquation (int testNumber, int correctRootsCount, double k, d
     printOK (testNumber);
 }
 
-void testIsEqual (int testNumber, double x, double y, bool correctAnswer) {
-    assert (isfinite (x));
-    assert (isfinite (y));
+void testIsEqual (int testNumber, IsEqualTest test) {
+    assert (isfinite (test.x));
+    assert (isfinite (test.y));
 
-    bool answer = isEqual (x, y);
+    bool answer = isEqual (test.x, test.y);
 
-    if (answer != correctAnswer) {
+    if (answer != test.correctAnswer) {
         printf ("Error in IsEqual\n", PRECISION);
-        printf ("FAIl #%d, x = %lf, y = %lf\n", testNumber, x, y);
-        printf ("correctAnswer = %d\n", correctAnswer);
+        printf ("FAIl #%d, x = %lf, y = %lf\n", testNumber, test.x, test.y);
+        printf ("correctAnswer = %d\n", test.correctAnswer);
         printf ("answer        = %d\n", answer);
         return;
     }
