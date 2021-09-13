@@ -5,6 +5,10 @@
 #include "quadratic.h"
 #include "testQuadratic.h"
 
+void printOK (int testNumber) {
+    printf ("OK #%d \n", testNumber);
+}
+
 void testAll () {
     printf ("Test isEqual:\n");
     testIsEqual (1, 0.0345, 0.0348, true);
