@@ -29,7 +29,7 @@ void testAll () {
     for(int i = 0; i < 3; i++) {
         testSolveLinearEquation (i + 1, &setSolveLinearEquation[i]);
     }
-    printf("\n");
+    printf ("\n");
 
     setSolveQuadraticEquation[0] = {-3,  0, 75, 2, -5.000, 5.000};
     setSolveQuadraticEquation[1] = {-2,  0,  7, 2, -1.870, 1.870};
