@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "quadratic.h"
 #include "testQuadratic.h"
 
