@@ -8,12 +8,17 @@
 void printOK (int testNumber);
 
 void testAll () {
-    IsEqualTest setIsEqualTest[2];
-    SolveLinearEquationTest setSolveLinearEquation[3];
-    SolveQuadraticEquationTest setSolveQuadraticEquation[4];
+    IsEqualTest setIsEqualTest[] = {{0.0345, 0.0348, true},
+                                    {1.2451, 1.2660, false}};
 
-    setIsEqualTest[0] = {0.0345, 0.0348, true};
-    setIsEqualTest[1] = {1.2451, 1.2660, false};
+    SolveLinearEquationTest setSolveLinearEquation[] = {{                   1, 4, 7, -1.750},
+                                                        {                   0, 0, 9, 0.0000},
+                                                        {INFINITE_ROOTS_COUNT, 0, 0, 0.0000}};
+
+    SolveQuadraticEquationTest setSolveQuadraticEquation[] = {{-3,  0, 75, 2, -5.000, 5.000},
+                                                              {-2,  0,  7, 2, -1.870, 1.870},
+                                                              {16, -8,  1, 1,  0.250, 0.000},
+                                                              { 9, -6,  2, 0,  0.000, 0.000}};
 
     printf ("Test isEqual:\n");
     for(int i = 0; i < 2; i++) {
@@ -21,20 +26,11 @@ void testAll () {
     }
     printf ("\n");
 
-    setSolveLinearEquation[0] = {                   1, 4, 7, -1.750};
-    setSolveLinearEquation[1] = {                   0, 0, 9, 0.0000};
-    setSolveLinearEquation[2] = {INFINITE_ROOTS_COUNT, 0, 0, 0.0000};
-
     printf ("Test solveLinearEquation:\n");
     for(int i = 0; i < 3; i++) {
         testSolveLinearEquation (i + 1, &setSolveLinearEquation[i]);
     }
     printf ("\n");
-
-    setSolveQuadraticEquation[0] = {-3,  0, 75, 2, -5.000, 5.000};
-    setSolveQuadraticEquation[1] = {-2,  0,  7, 2, -1.870, 1.870};
-    setSolveQuadraticEquation[2] = {16, -8,  1, 1,  0.250, 0.000};
-    setSolveQuadraticEquation[3] = { 9, -6,  2, 0,  0.000, 0.000};
 
     printf ("Test solveQuadraticEquation:\n");
     for(int i = 0; i < 4; i++) {
