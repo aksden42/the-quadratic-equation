@@ -21,24 +21,23 @@ void testAll () {
                                                               { 9, -6,  2, 0,  0.000, 0.000}};
 
     printf ("Test isEqual:\n");
-    for(int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
         testIsEqual (i + 1, &setIsEqualTest[i]);
     }
-    printf ("\n");
 
-    printf ("Test solveLinearEquation:\n");
-    for(int i = 0; i < 3; i++) {
+    printf ("\nTest solveLinearEquation:\n");
+    for (int i = 0; i < 3; i++) {
         testSolveLinearEquation (i + 1, &setSolveLinearEquation[i]);
     }
-    printf ("\n");
 
-    printf ("Test solveQuadraticEquation:\n");
-    for(int i = 0; i < 4; i++) {
+    printf ("\nTest solveQuadraticEquation:\n");
+    for (int i = 0; i < 4; i++) {
         testSolveQuadraticEquation (i + 1, &setSolveQuadraticEquation[i]);
     }
 }
 
 void testSolveQuadraticEquation (int testNumber, const SolveQuadraticEquationTest *test) {
+    assert (test != NULL);
     assert (isfinite (test->a));
     assert (isfinite (test->b));
     assert (isfinite (test->c));
@@ -61,6 +60,7 @@ void testSolveQuadraticEquation (int testNumber, const SolveQuadraticEquationTes
 }
 
 void testSolveLinearEquation (int testNumber, const SolveLinearEquationTest *test) {
+    assert (test != NULL);
     assert (isfinite (test->k));
     assert (isfinite (test->b));
 
@@ -83,6 +83,7 @@ void testSolveLinearEquation (int testNumber, const SolveLinearEquationTest *tes
 }
 
 void testIsEqual (int testNumber, const IsEqualTest* test) {
+    assert (test != NULL);
     assert (isfinite (test->firstNumber));
     assert (isfinite (test->secondNumber));
 
